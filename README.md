@@ -1,16 +1,16 @@
-# weather_prediction
+# MoodCast
 
-Whats your weather?
+This is a Flutter application that provides weather information using the OpenWeather API. The app is designed with a focus on clean architecture, ensuring separation of concerns and maintainability.
 
-## Getting Started
+## Features
+- **OpenWeather API Integration**: Fetches real-time weather data and a 7-day weather forecast for specified locations.
+- **Freezed Model**: Utilizes the Freezed package to create immutable data models, ensuring type safety and reducing boilerplate code.
+- **Clean Architecture**: Employs a layered architecture to separate business logic, data access, and presentation layers, making the codebase more modular and easier to test.
+- **Responsive UI**: Designed for a smooth user experience, with clear navigation and interactive elements.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Structure
+The project follows a clear directory structure, allowing for easy navigation through various components:
+- **Models**: Contains data models defined using Freezed.
+- **Repositories**: Handles API calls and data management.
+- **Screens**: Defines the UI components and pages of the application.
+- **Services**: Contains utility functions and services for the app.
