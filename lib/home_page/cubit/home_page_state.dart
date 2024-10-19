@@ -9,6 +9,7 @@ class HomePageState with _$HomePageState {
   factory HomePageState({
     required TextEditingController controller,
     Weather? weather,
+    List<Forecast>? weekForecast,
     Error? error,
     @Default(HomePageStatus.initial) HomePageStatus status,
   }) = _HomePageState;

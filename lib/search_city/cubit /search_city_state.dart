@@ -9,7 +9,7 @@ class SearchCityState with _$SearchCityState {
   factory SearchCityState({
     required TextEditingController controller,
     Weather? weather,
-    List<Weather>? forecast, //todo
+    List<Forecast>? forecast,
     Error? error,
     @Default(SearchCityStatus.initial) SearchCityStatus status,
   }) = _SearchCityState;

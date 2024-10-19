@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../models/daily_forecast.dart';
 import '../../models/weather.dart';
 import '../../repositories/weather_repository.dart';
 
@@ -27,14 +28,15 @@ class SearchCityCubit extends Cubit<SearchCityState> {
 
     try {
       final cityName = state.controller.text;
-
       final weather = await _repository.fetchWeather(
         cityName,
       );
+      final forecast = await _repository.fetchWeekForecast(cityName);
 
       if (isClosed) return;
       emit(state.copyWith(
         weather: weather,
+        forecast: forecast,
         status: SearchCityStatus.success,
       ));
     } on Exception {

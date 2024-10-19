@@ -1,36 +1,3 @@
-// import 'package:freezed_annotation/freezed_annotation.dart';
-//
-// part 'weather.freezed.dart';
-// part 'weather.g.dart';
-//
-// @freezed
-// class Weather with _$Weather {
-//   const factory Weather({
-//     @JsonKey(
-//       name: 'name',
-//       includeIfNull: false,
-//     )
-//     required String cityName,
-//     @JsonKey(
-//       name: 'main',
-//       includeIfNull: false,
-//       fromJson: _temperatureFromJson,
-//     )
-//     required double temperature,
-//     @JsonKey(
-//       name: 'weather',
-//       includeIfNull: false,
-//     )
-//     required double mainCondition,
-//
-//   }) = _Weather;
-//
-//   factory Weather.fromJson(Map<String, dynamic> json) =>
-//       _$WeatherFromJson(json);
-// }
-//
-// double _temperatureFromJson(Map<String, dynamic> main) => main['temp']; todo finish with freezed
-
 class Weather {
   final String cityName;
   final double temperature;

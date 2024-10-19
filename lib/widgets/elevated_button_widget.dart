@@ -32,7 +32,7 @@ class ElevatedButtonWidget extends StatelessWidget {
                   buttonText,
                   style: AppTheme.createWhiteTextStyle(
                     20,
-                    isBold: true,
+                    bold: true,
                   ),
                 ),
         ),

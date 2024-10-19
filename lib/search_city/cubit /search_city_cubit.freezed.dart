@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SearchCityState {
   TextEditingController get controller => throw _privateConstructorUsedError;
   Weather? get weather => throw _privateConstructorUsedError;
-  List<Weather>? get forecast => throw _privateConstructorUsedError; //todo
+  List<Forecast>? get forecast => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
   SearchCityStatus get status => throw _privateConstructorUsedError;
 
@@ -38,7 +38,7 @@ abstract class $SearchCityStateCopyWith<$Res> {
   $Res call(
       {TextEditingController controller,
       Weather? weather,
-      List<Weather>? forecast,
+      List<Forecast>? forecast,
       Error? error,
       SearchCityStatus status});
 }
@@ -76,7 +76,7 @@ class _$SearchCityStateCopyWithImpl<$Res, $Val extends SearchCityState>
       forecast: freezed == forecast
           ? _value.forecast
           : forecast // ignore: cast_nullable_to_non_nullable
-              as List<Weather>?,
+              as List<Forecast>?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ abstract class _$$SearchCityStateImplCopyWith<$Res>
   $Res call(
       {TextEditingController controller,
       Weather? weather,
-      List<Weather>? forecast,
+      List<Forecast>? forecast,
       Error? error,
       SearchCityStatus status});
 }
@@ -136,7 +136,7 @@ class __$$SearchCityStateImplCopyWithImpl<$Res>
       forecast: freezed == forecast
           ? _value._forecast
           : forecast // ignore: cast_nullable_to_non_nullable
-              as List<Weather>?,
+              as List<Forecast>?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ class _$SearchCityStateImpl extends _SearchCityState {
   _$SearchCityStateImpl(
       {required this.controller,
       this.weather,
-      final List<Weather>? forecast,
+      final List<Forecast>? forecast,
       this.error,
       this.status = SearchCityStatus.initial})
       : _forecast = forecast,
@@ -165,9 +165,9 @@ class _$SearchCityStateImpl extends _SearchCityState {
   final TextEditingController controller;
   @override
   final Weather? weather;
-  final List<Weather>? _forecast;
+  final List<Forecast>? _forecast;
   @override
-  List<Weather>? get forecast {
+  List<Forecast>? get forecast {
     final value = _forecast;
     if (value == null) return null;
     if (_forecast is EqualUnmodifiableListView) return _forecast;
@@ -175,7 +175,6 @@ class _$SearchCityStateImpl extends _SearchCityState {
     return EqualUnmodifiableListView(value);
   }
 
-//todo
   @override
   final Error? error;
   @override
@@ -218,7 +217,7 @@ abstract class _SearchCityState extends SearchCityState {
   factory _SearchCityState(
       {required final TextEditingController controller,
       final Weather? weather,
-      final List<Weather>? forecast,
+      final List<Forecast>? forecast,
       final Error? error,
       final SearchCityStatus status}) = _$SearchCityStateImpl;
   _SearchCityState._() : super._();
@@ -228,7 +227,7 @@ abstract class _SearchCityState extends SearchCityState {
   @override
   Weather? get weather;
   @override
-  List<Weather>? get forecast; //todo
+  List<Forecast>? get forecast;
   @override
   Error? get error;
   @override

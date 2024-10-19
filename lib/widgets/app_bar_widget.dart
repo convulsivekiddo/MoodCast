@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_prediction/constants/constants.dart';
 import 'package:weather_prediction/home_page/cubit/home_page_cubit.dart';
 import 'package:weather_prediction/repositories/weather_repository.dart';
 import 'package:weather_prediction/search_city/cubit%20/search_city_cubit.dart';
@@ -29,17 +30,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         elevation: 25,
         title: _buildTitleWidget(
           context,
-          'MoodCast',
+          Constants.appNameText,
         ),
-        leading: IconButton(
-          icon: const Icon(
-            size: 30,
-            Icons.refresh,
-            color: Colors.white,
-          ),
-          color: Colors.black,
-          onPressed: () => _homeCubit.getWeather(),
-        ),
+        leading: _buildRefreshButtonWidget(context),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
@@ -78,9 +71,21 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         textAlign: TextAlign.center,
         style: AppTheme.createWhiteTextStyle(
           30,
-          isBold: true,
+          bold: true,
         ),
       ),
+    );
+  }
+
+  Widget _buildRefreshButtonWidget(BuildContext context) {
+    return IconButton(
+      icon: const Icon(
+        size: 30,
+        Icons.refresh,
+        color: Colors.white,
+      ),
+      color: Colors.black,
+      onPressed: () => _homeCubit.getWeather(),
     );
   }
 }

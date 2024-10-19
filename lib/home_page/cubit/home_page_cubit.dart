@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:weather_prediction/models/daily_forecast.dart';
 
 import '../../models/weather.dart';
 import '../../repositories/weather_repository.dart';
@@ -17,7 +18,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit({
     required this.context,
     required Weather? receivedWeather,
-    required List<Weather>? receivedForecast,
+    required List<Forecast>? receivedForecast,
   }) : super(
           HomePageState(
             controller: TextEditingController(),
@@ -36,9 +37,11 @@ class HomePageCubit extends Cubit<HomePageState> {
       final weather = await _repository.fetchWeather(
         cityName,
       );
+      final forecast = await _repository.fetchWeekForecast(cityName);
       if (isClosed) return;
       emit(state.copyWith(
         weather: weather,
+        weekForecast: forecast,
         status: HomePageStatus.success,
       ));
     } on Exception {
@@ -51,37 +54,20 @@ class HomePageCubit extends Cubit<HomePageState> {
     }
   }
 
-  Future<void> searchCity() async {
-    emit(state.copyWith(status: HomePageStatus.loading));
-
-    try {
-      final cityName = state.controller.text;
-      final weather = await _repository.fetchWeather(cityName);
-
-      if (isClosed) return;
-      emit(
-        state.copyWith(
-          weather: weather,
-          status: HomePageStatus.success,
-        ),
-      );
-    } on Exception {
-      if (isClosed) return;
-      if (!context.mounted) return;
-      throw Exception();
-    }
-  }
-
   void _clearStatuses() {
     emit(state.copyWith(
       status: HomePageStatus.initial,
     ));
   }
 
-  void _init(Weather? receivedWeather, List<Weather>? receivedForecast) {
-    if (receivedWeather != null) {
+  void _init(
+    Weather? receivedWeather,
+    List<Forecast>? receivedForecast,
+  ) {
+    if (receivedWeather != null && receivedForecast != null) {
       emit(state.copyWith(
         weather: receivedWeather,
+        weekForecast: receivedForecast,
       ));
     } else {
       getWeather();
@@ -107,37 +93,6 @@ class HomePageCubit extends Cubit<HomePageState> {
         return 'assets/thunderstorm.json';
       case 'clear':
         return 'assets/sunny.json';
-      default:
-        return 'assets/sunny.json';
-    }
-  }
-
-  String getQAnimation(String? mainCondition) {
-    switch (state.weather?.mainCondition.toLowerCase()) {
-      case 'clouds':
-        return 'Cloudy';
-      case 'mist':
-        return 'High Moisture';
-      case 'haze':
-        return 'Hazy';
-      case 'dust':
-        return 'Dusty';
-      case 'fog':
-        return 'Foggy';
-      case 'smoke':
-        return 'Smoky';
-
-      case 'rain':
-        return 'Rainy';
-      case 'shower rain':
-        return 'Shower Rain';
-      case 'drizzle':
-        return 'Drizzle';
-
-      case 'thunderstorm':
-        return 'Thunderstorm';
-      case 'clear':
-        return 'Clear';
       default:
         return 'assets/sunny.json';
     }

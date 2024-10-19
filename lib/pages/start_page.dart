@@ -5,9 +5,6 @@ import 'package:weather_prediction/widgets/bubble_button_widget.dart';
 import 'package:weather_prediction/widgets/elevated_button_widget.dart';
 
 import '../constants/constants.dart';
-import '../home_page/cubit/home_page_cubit.dart';
-import '../home_page/page/home_page.dart';
-import '../repositories/weather_repository.dart';
 import '../theme /theme.dart';
 
 class StartingPage extends StatefulWidget {
@@ -20,18 +17,8 @@ class StartingPage extends StatefulWidget {
 class _StartingPageState extends State<StartingPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppCubit, AppState>(
-      listener: (context, state) {
-        // if (state.error != null) {
-        //   SnackBarWidget.show(
-        //     context,
-        //     "Cant navigate",
-        //   );
-        // }
-      },
-      child: Scaffold(
-        body: _buildPageWidget(context),
-      ),
+    return Scaffold(
+      body: _buildPageWidget(context),
     );
   }
 
@@ -76,7 +63,7 @@ class _StartingPageState extends State<StartingPage> {
       Constants.welcomeText,
       style: AppTheme.createWhiteTextStyle(
         40,
-        isBold: true,
+        bold: true,
       ),
     );
   }
@@ -90,44 +77,9 @@ class _StartingPageState extends State<StartingPage> {
   }
 
   Widget _buildStartButton(BuildContext context) {
-    // return ElevatedButton(
-    //   onPressed: () {
-    //     _cubit.getWeatherByCityName();
-    //   },
-    //   child: SizedBox(
-    //     width: MediaQuery.sizeOf(context).width * 0.5,
-    //     height: 50,
-    //     child: Center(
-    //       child: loading
-    //           ? const ProgressIndicatorWidget(size: 20)
-    //           : Text(
-    //               Constants.seeWeatherText,
-    //               style: AppTheme.createWhiteTextStyle(
-    //                 20,
-    //                 isBold: true,
-    //               ),
-    //             ),
-    //     ),
-    //   ),
-    // );
-
     return ElevatedButtonWidget(
       onPressed: () async {
         _cubit.logIn();
-        // await Navigator.of(context).push( todo remove
-        //   MaterialPageRoute(
-        //     builder: (context) => RepositoryProvider<WeatherRepository>(
-        //       create: (context) => WeatherRepositoryImpl(),
-        //       child: BlocProvider<HomePageCubit>(
-        //         create: (context) => HomePageCubit(
-        //           context: context,
-        //           receivedWeather: null,
-        //         ),
-        //         child: const HomePage(),
-        //       ),
-        //     ),
-        //   ),
-        // );
       },
       buttonText: 'Start',
     );
