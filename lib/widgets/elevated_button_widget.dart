@@ -19,20 +19,28 @@ class ElevatedButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.5,
-        height: 50,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        constraints: BoxConstraints(
+          minWidth: MediaQuery.of(context).size.width * 0.5,
+          maxWidth: MediaQuery.of(context).size.width * 0.8,
+          minHeight: 50,
+        ),
         child: Center(
           child: isLoading
               ? const ProgressIndicatorWidget(
                   size: 20,
                   strokeWidth: 1,
                 )
-              : Text(
-                  buttonText,
-                  style: AppTheme.createWhiteTextStyle(
-                    20,
-                    isBold: true,
+              : FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    buttonText,
+                    style: AppTheme.createWhiteTextStyle(
+                      20,
+                      bold: true,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
         ),

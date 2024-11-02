@@ -11,9 +11,8 @@ abstract class WeatherRepository {
   Future<Weather> fetchWeather(String cityName);
 
   Future<String> getCurrentCity();
-  //todo for 7 days below
 
-  Future<List<Weather>> fetchWeekForecast(String cityName);
+  Future<List<Forecast>> fetchWeekForecast(String cityName);
 }
 
 class WeatherRepositoryImpl implements WeatherRepository {
@@ -21,11 +20,13 @@ class WeatherRepositoryImpl implements WeatherRepository {
   Future<Weather> fetchWeather(String cityName) async {
     const baseUrl = Constants.baseUrl;
     const apiKey = Constants.apiKey;
-    final cityNameTest = 'London';
+
     final response = await http.get(
       Uri.parse('$baseUrl?q=$cityName&appid=$apiKey&units=metric'),
     );
-    if (response.statusCode != 200) throw Exception("Failed loading weather");
+    if (response.statusCode != 200) {
+      throw Exception(Constants.loadingWeatherExceptionText);
+    }
     try {
       final weather = Weather.fromJson(
         jsonDecode(response.body),
@@ -37,20 +38,57 @@ class WeatherRepositoryImpl implements WeatherRepository {
   }
 
   @override
-  Future<List<Weather>> fetchWeekForecast(String cityName) async {
+  Future<List<Forecast>> fetchWeekForecast(String cityName) async {
     const baseUrl = Constants.baseWeekUrl;
     const apiKey = Constants.apiKey;
 
     final response = await http.get(
       Uri.parse('$baseUrl?q=$cityName&appid=$apiKey&units=metric'),
     );
-    if (response.statusCode != 200) throw Exception("Failed loading weather");
-    try {
-      final data = jsonDecode(response.body);
-      final List daily = data['daily']; //todo something is wrong here !!!!
-      final forecast = daily.map((json) => Weather.fromJson(json)).toList();
+    if (response.statusCode != 200) {
+      throw Exception(Constants.loadingForecastExceptionText);
+    }
 
-      return forecast;
+    try {
+      final jsonResponse = jsonDecode(response.body);
+      List<dynamic> weatherList = jsonResponse['list'];
+
+      Map<String, List<Forecast>> groupedForecasts = {};
+
+      for (var entry in weatherList) {
+        Forecast forecast = Forecast.fromJson(entry);
+        String date = forecast.date;
+
+        if (!groupedForecasts.containsKey(date)) {
+          groupedForecasts[date] = [];
+        }
+        groupedForecasts[date]!.add(forecast);
+      }
+
+      List<Forecast> dailyForecasts = [];
+
+      groupedForecasts.forEach(
+        (date, dayForecasts) {
+          double totalTemp = 0;
+          String description = dayForecasts[0].description;
+
+          for (var forecast in dayForecasts) {
+            totalTemp += forecast.temperature;
+          }
+
+          double avgTemp = totalTemp / dayForecasts.length;
+
+          dailyForecasts.add(
+            Forecast(
+              date: date,
+              temperature: avgTemp,
+              description: description,
+            ),
+          );
+        },
+      );
+
+      return dailyForecasts;
     } catch (e) {
       rethrow;
     }

@@ -22,7 +22,11 @@ class BubbleButtonWidget extends StatelessWidget {
         onTap: () {
           _controller.play();
         },
-        child: Image.asset(imagePath, height: 200.0, width: 200.0),
+        child: Image.asset(
+          imagePath,
+          height: 200.0,
+          width: 200.0,
+        ),
       ),
     );
   }

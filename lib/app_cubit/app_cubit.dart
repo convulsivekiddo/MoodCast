@@ -15,55 +15,15 @@ class AppCubit extends Cubit<AppState> {
           const AppState(),
         );
 
-  // void toggleTheme(BuildContext context) {
-  //   if (state.currentThemeColor == Colors.lightBlue) {
-  //     emit(state.copyWith(
-  //       currentThemeColor: Colors.orange,
-  //     ));
-  //   }
-  //   // if (state.currentThemeColor == Colors.orange) {
-  //   else
-  //     emit(state.copyWith(
-  //       currentThemeColor: Colors.lightBlue,
-  //     ));
-  //   // }
-  // }
-
-  // void toggleTheme() {
-  //   try {
-  //     final newTheme = state.currentTheme == AppTheme.blueTheme
-  //         ? AppTheme.orangeTheme
-  //         : AppTheme.blueTheme;
-  //     emit(
-  //       state.copyWith(currentTheme: newTheme),
-  //     );
-  //   } catch (_) {
-  //     throw Exception('cant swtich theme');
-  //   }
-  // }
-
   void logIn() {
-    emit(state.copyWith(
-      isLogin: true,
-    ));
-  }
-
-  void setCurrentDay(int index) {
-    //todo remove if not work
-    emit(state.copyWith(currentDay: index));
+    emit(state.copyWith(isLogin: true));
   }
 
   void toggleTheme() {
     if (state.isBlueTheme) {
-      emit(state.copyWith(
-        // currentTheme: AppTheme.orangeTheme,
-        isBlueTheme: false,
-      ));
+      emit(state.copyWith(isBlueTheme: false));
     } else {
-      emit(state.copyWith(
-        // currentTheme: AppTheme.blueTheme,
-        isBlueTheme: true,
-      ));
+      emit(state.copyWith(isBlueTheme: true));
     }
   }
 }

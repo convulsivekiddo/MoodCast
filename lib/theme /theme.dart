@@ -118,12 +118,12 @@ class AppTheme {
 
   static TextStyle createWhiteTextStyle(
     double fontSize, {
-    bool isBold = false,
+    bool bold = false,
     Color color = Colors.white,
   }) {
     return GoogleFonts.mulish(
       color: color,
-      fontWeight: isBold ? FontWeight.bold : FontWeight.w300,
+      fontWeight: bold ? FontWeight.bold : FontWeight.w300,
       fontSize: fontSize,
     );
   }

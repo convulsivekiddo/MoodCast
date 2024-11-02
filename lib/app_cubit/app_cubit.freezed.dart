@@ -16,11 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AppState {
-// @Default(ThemeData(appBarTheme: Colors.orange ))
-// @Default(ThemeData) ThemeData currentTheme,
-// @Default(Colors.lightBlue) MaterialColor currentThemeColor,
-// @Default(false) bool isInit,
-// @Default(AppTheme.blueTheme) ThemeData currentTheme,
   bool get isLogin => throw _privateConstructorUsedError;
   bool get isBlueTheme => throw _privateConstructorUsedError;
   int get currentDay => throw _privateConstructorUsedError;
@@ -128,11 +123,6 @@ class _$AppStateImpl extends _AppState {
       {this.isLogin = false, this.isBlueTheme = true, this.currentDay = 0})
       : super._();
 
-// @Default(ThemeData(appBarTheme: Colors.orange ))
-// @Default(ThemeData) ThemeData currentTheme,
-// @Default(Colors.lightBlue) MaterialColor currentThemeColor,
-// @Default(false) bool isInit,
-// @Default(AppTheme.blueTheme) ThemeData currentTheme,
   @override
   @JsonKey()
   final bool isLogin;
@@ -180,11 +170,6 @@ abstract class _AppState extends AppState {
       final int currentDay}) = _$AppStateImpl;
   const _AppState._() : super._();
 
-// @Default(ThemeData(appBarTheme: Colors.orange ))
-// @Default(ThemeData) ThemeData currentTheme,
-// @Default(Colors.lightBlue) MaterialColor currentThemeColor,
-// @Default(false) bool isInit,
-// @Default(AppTheme.blueTheme) ThemeData currentTheme,
   @override
   bool get isLogin;
   @override

@@ -51,6 +51,8 @@ dependencies:
   flutter_svg: ^2.0.10+1
   spring: ^2.0.2
   provider: ^6.1.2
+  flutter_launcher_icons: ^0.14.1
+
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +65,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
   build_runner: ^2.4.12
+  flutter_launcher_icons: ^0.14.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/ic_launcher.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,8 +91,9 @@ flutter:
     - assets/sunny.json
     - assets/sunny_cloudy.json
     - assets/thunderstorm.json
-    - assets/pes_patron.png
     - assets/rainbow_logo.png
+    - assets/crying_cloud.png
+#    - assets/ic_launcher.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
