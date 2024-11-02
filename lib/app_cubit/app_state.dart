@@ -1,6 +1,11 @@
 part of 'app_cubit.dart';
 
-enum AppStatus { initial, loading, success, error }
+enum AppStatus {
+  initial,
+  loading,
+  success,
+  error,
+}
 
 @freezed
 class AppState with _$AppState {

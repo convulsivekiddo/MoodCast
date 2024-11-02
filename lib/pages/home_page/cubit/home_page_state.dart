@@ -1,6 +1,11 @@
 part of 'home_page_cubit.dart';
 
-enum HomePageStatus { initial, loading, success, error }
+enum HomePageStatus {
+  initial,
+  loading,
+  success,
+  error,
+}
 
 @freezed
 class HomePageState with _$HomePageState {
@@ -10,7 +15,6 @@ class HomePageState with _$HomePageState {
     required TextEditingController controller,
     Weather? weather,
     List<Forecast>? weekForecast,
-    Error? error,
     @Default(HomePageStatus.initial) HomePageStatus status,
   }) = _HomePageState;
 }

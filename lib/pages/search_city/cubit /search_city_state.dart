@@ -10,7 +10,6 @@ class SearchCityState with _$SearchCityState {
     required TextEditingController controller,
     Weather? weather,
     List<Forecast>? forecast,
-    Error? error,
     @Default(SearchCityStatus.initial) SearchCityStatus status,
   }) = _SearchCityState;
 }

@@ -24,7 +24,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
     final response = await http.get(
       Uri.parse('$baseUrl?q=$cityName&appid=$apiKey&units=metric'),
     );
-    if (response.statusCode != 200) throw Exception("Failed loading weather");
+    if (response.statusCode != 200) {
+      throw Exception(Constants.loadingWeatherExceptionText);
+    }
     try {
       final weather = Weather.fromJson(
         jsonDecode(response.body),
@@ -43,7 +45,9 @@ class WeatherRepositoryImpl implements WeatherRepository {
     final response = await http.get(
       Uri.parse('$baseUrl?q=$cityName&appid=$apiKey&units=metric'),
     );
-    if (response.statusCode != 200) throw Exception('Failed loading forecast');
+    if (response.statusCode != 200) {
+      throw Exception(Constants.loadingForecastExceptionText);
+    }
 
     try {
       final jsonResponse = jsonDecode(response.body);

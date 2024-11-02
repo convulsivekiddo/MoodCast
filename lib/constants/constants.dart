@@ -14,13 +14,21 @@ abstract class Constants {
   static const enterTheCityNameText = "Enter The City Name";
   static const seeWeatherText = "See Weather";
   static const errorCityNotFoundText = "City is not found";
-  static const errorCouldntLoadWeather = "Could not load the weather";
+  static const errorCouldntLoadWeather =
+      "Looks like something went wrong. Check your internet connection and try again!";
   static const welcomeText = "Hello! Welcome to MoodCast!";
   static const startPageText =
       "I am your personal assistant\n for viewing the weather in different cities.";
   static const exceptionTempText = "Cannot load temperature,";
   static const exceptionDayText = "Cannot load day of week";
   static const goBackText = 'Go back';
+  static const tryAgainText = 'Try Again';
+  static const goBackAndTryAgainText = 'Go back and try again';
+  static const oopsText = 'Oops!';
+  static const laterWeekText = 'Later this week:';
+  static const startText = 'Start';
+  static const loadingWeatherExceptionText = 'Failed loading weather';
+  static const loadingForecastExceptionText = 'Failed loading forecast';
 
   //urls
   static const sunnyImageUrl = 'assets/sunny.json';
@@ -30,6 +38,7 @@ abstract class Constants {
   static const thunderstormImageUrl = 'assets/thunderstorm.json';
   static const infinityImageUrl = 'assets/infinity.svg';
   static const rainbowImageUrl = 'assets/rainbow_logo.png';
+  static const cryingCloudImageUrl = 'assets/crying_cloud.png';
 
   //colors
   static const primaryColorBlue = Colors.lightBlue;

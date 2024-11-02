@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_prediction/home_page/cubit/home_page_cubit.dart';
+import 'package:weather_prediction/pages/error_page/error_page.dart';
 import 'package:weather_prediction/theme%20/theme.dart';
 import 'package:weather_prediction/widgets/forecast_widget.dart';
-import 'package:weather_prediction/widgets/snack_bar_widget.dart';
 
-import '../../constants/constants.dart';
-import '../../models/daily_forecast.dart';
-import '../../widgets/app_bar_widget.dart';
-import '../../widgets/progress_indicator_widget.dart';
+import '../../../constants/constants.dart';
+import '../../../models/daily_forecast.dart';
+import '../../../models/weather.dart';
+import '../../../repositories/weather_repository.dart';
+import '../../../widgets/app_bar_widget.dart';
+import '../../../widgets/progress_indicator_widget.dart';
+import '../cubit/home_page_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,17 +25,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomePageCubit, HomePageState>(
-      listener: (context, state) {
-        if (state.error != null) {
-          SnackBarWidget.show(
-            context,
-            Constants.errorCouldntLoadWeather,
+      listener: (context, state) async {
+        if (state.status == HomePageStatus.error) {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => RepositoryProvider<WeatherRepository>(
+                create: (context) => WeatherRepositoryImpl(),
+                child: BlocProvider<HomePageCubit>(
+                  create: (context) => HomePageCubit(
+                    context: context,
+                  ),
+                  child: const ErrorPage(),
+                ),
+              ),
+            ),
           );
         }
       },
-      child: Scaffold(
-        appBar: const AppBarWidget(),
-        body: _buildPageWidget(context),
+      child: PopScope(
+        canPop: false,
+        child: Scaffold(
+          appBar: const AppBarWidget(),
+          body: _buildPageWidget(context),
+        ),
       ),
     );
   }
@@ -52,37 +66,44 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPageContentWidget(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.sizeOf(context).width,
-      height: MediaQuery.sizeOf(context).height,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildLocationHeaderWidget(context),
-            const SizedBox(height: 5),
-            _buildTimeInfoWidget(context),
-            const SizedBox(height: 5),
-            _buildCurrentTempWidget(context),
-            const SizedBox(height: 5),
-            _buildDescriptionWidget(context),
-            const SizedBox(height: 5),
-            _buildWeatherImageWidget(context),
-            const SizedBox(height: 5),
-            _buildLaterTextWidget(context),
-            const SizedBox(height: 5),
-            _buildWeekForecastWidget(context),
-          ],
-        ),
-      ),
+    return BlocSelector<HomePageCubit, HomePageState, Weather?>(
+      selector: (state) => state.weather,
+      builder: (context, weather) {
+        return weather != null
+            ? SizedBox(
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildLocationHeaderWidget(context),
+                      const SizedBox(height: 5),
+                      _buildTimeInfoWidget(context),
+                      const SizedBox(height: 5),
+                      _buildCurrentTempWidget(context),
+                      const SizedBox(height: 5),
+                      _buildDescriptionWidget(context),
+                      const SizedBox(height: 5),
+                      _buildWeatherImageWidget(context),
+                      const SizedBox(height: 5),
+                      _buildLaterTextWidget(context),
+                      const SizedBox(height: 5),
+                      _buildWeekForecastWidget(context),
+                    ],
+                  ),
+                ),
+              )
+            : const SizedBox.shrink();
+      },
     );
   }
 
   Widget _buildLocationHeaderWidget(BuildContext context) {
     return BlocSelector<HomePageCubit, HomePageState, String>(
-      selector: (state) => state.weather?.cityName ?? "Loading City...",
+      selector: (state) => state.weather!.cityName,
       builder: (context, cityName) {
         return Padding(
           padding: const EdgeInsets.only(top: 20.0),
@@ -97,7 +118,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildTimeInfoWidget(BuildContext context) {
     return BlocSelector<HomePageCubit, HomePageState, int>(
-      selector: (state) => state.weather?.dt ?? 0,
+      selector: (state) => state.weather!.dt,
       builder: (context, date) {
         final dateTime = DateTime.fromMillisecondsSinceEpoch(date * 1000);
         return Column(
@@ -121,7 +142,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildDescriptionWidget(BuildContext context) {
     return BlocSelector<HomePageCubit, HomePageState, String>(
-      selector: (state) => state.weather?.mainCondition ?? 'qwe',
+      selector: (state) => state.weather!.mainCondition,
       builder: (context, description) {
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -143,7 +164,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildCurrentTempWidget(BuildContext context) {
     return BlocSelector<HomePageCubit, HomePageState, double>(
-      selector: (state) => state.weather?.temperature ?? 0,
+      selector: (state) => state.weather!.temperature,
       builder: (state, temperature) {
         return Text(
           "${temperature.toStringAsFixed(0)} °С",
@@ -155,7 +176,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildWeatherImageWidget(BuildContext context) {
     return BlocSelector<HomePageCubit, HomePageState, String?>(
-      selector: (state) => state.weather?.mainCondition,
+      selector: (state) => state.weather!.mainCondition,
       builder: (context, mainCondition) {
         return Lottie.asset(
           _cubit.getAnimation(
@@ -170,7 +191,7 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: Text(
-        'Later this week:',
+        Constants.laterWeekText,
         style: AppTheme.createWhiteTextStyle(30),
         textAlign: TextAlign.center,
       ),

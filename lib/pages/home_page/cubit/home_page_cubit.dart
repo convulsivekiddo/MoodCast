@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:weather_prediction/models/daily_forecast.dart';
 
-import '../../models/weather.dart';
-import '../../repositories/weather_repository.dart';
+import '../../../models/weather.dart';
+import '../../../repositories/weather_repository.dart';
 
 part 'home_page_state.dart';
 
@@ -17,8 +17,8 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   HomePageCubit({
     required this.context,
-    required Weather? receivedWeather,
-    required List<Forecast>? receivedForecast,
+    Weather? receivedWeather,
+    List<Forecast>? receivedForecast,
   }) : super(
           HomePageState(
             controller: TextEditingController(),
@@ -55,9 +55,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   void _clearStatuses() {
-    emit(state.copyWith(
-      status: HomePageStatus.initial,
-    ));
+    emit(state.copyWith(status: HomePageStatus.initial));
   }
 
   void _init(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_prediction/home_page/cubit/home_page_cubit.dart';
-import 'package:weather_prediction/home_page/page/home_page.dart';
-import 'package:weather_prediction/search_city/cubit%20/search_city_cubit.dart';
 import 'package:weather_prediction/widgets/elevated_button_widget.dart';
 
-import '../constants/constants.dart';
-import '../repositories/weather_repository.dart';
-import '../widgets/snack_bar_widget.dart';
+import '../../../constants/constants.dart';
+import '../../../repositories/weather_repository.dart';
+import '../../../widgets/snack_bar_widget.dart';
+import '../../home_page/cubit/home_page_cubit.dart';
+import '../../home_page/page/home_page.dart';
+import '../cubit /search_city_cubit.dart';
 
 class SearchCityPage extends StatefulWidget {
   const SearchCityPage({super.key});
@@ -21,7 +21,7 @@ class _SearchCityPageState extends State<SearchCityPage> {
   Widget build(BuildContext context) {
     return BlocListener<SearchCityCubit, SearchCityState>(
       listener: (context, state) async {
-        if (state.error != null) {
+        if (state.status == SearchCityStatus.error) {
           SnackBarWidget.show(
             context,
             Constants.errorCityNotFoundText,
@@ -45,8 +45,11 @@ class _SearchCityPageState extends State<SearchCityPage> {
           );
         }
       },
-      child: Scaffold(
-        body: _buildPageContentWidget(context),
+      child: PopScope(
+        canPop: false,
+        child: Scaffold(
+          body: _buildPageContentWidget(context),
+        ),
       ),
     );
   }
@@ -117,6 +120,8 @@ class _SearchCityPageState extends State<SearchCityPage> {
 
   Widget _buildBackButtonWidget(BuildContext context) {
     return ElevatedButtonWidget(
-        onPressed: Navigator.of(context).pop, buttonText: Constants.goBackText);
+      onPressed: Navigator.of(context).pop,
+      buttonText: Constants.goBackText,
+    );
   }
 }

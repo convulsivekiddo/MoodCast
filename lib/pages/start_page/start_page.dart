@@ -4,8 +4,8 @@ import 'package:weather_prediction/app_cubit/app_cubit.dart';
 import 'package:weather_prediction/widgets/bubble_button_widget.dart';
 import 'package:weather_prediction/widgets/elevated_button_widget.dart';
 
-import '../constants/constants.dart';
-import '../theme /theme.dart';
+import '../../constants/constants.dart';
+import '../../theme /theme.dart';
 
 class StartingPage extends StatefulWidget {
   const StartingPage({super.key});
@@ -17,8 +17,11 @@ class StartingPage extends StatefulWidget {
 class _StartingPageState extends State<StartingPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildPageWidget(context),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: _buildPageWidget(context),
+      ),
     );
   }
 
@@ -81,7 +84,7 @@ class _StartingPageState extends State<StartingPage> {
       onPressed: () async {
         _cubit.logIn();
       },
-      buttonText: 'Start',
+      buttonText: Constants.startText,
     );
   }
 }

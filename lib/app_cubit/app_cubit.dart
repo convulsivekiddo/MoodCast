@@ -16,20 +16,14 @@ class AppCubit extends Cubit<AppState> {
         );
 
   void logIn() {
-    emit(state.copyWith(
-      isLogin: true,
-    ));
+    emit(state.copyWith(isLogin: true));
   }
 
   void toggleTheme() {
     if (state.isBlueTheme) {
-      emit(state.copyWith(
-        isBlueTheme: false,
-      ));
+      emit(state.copyWith(isBlueTheme: false));
     } else {
-      emit(state.copyWith(
-        isBlueTheme: true,
-      ));
+      emit(state.copyWith(isBlueTheme: true));
     }
   }
 }

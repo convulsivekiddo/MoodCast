@@ -11,7 +11,7 @@ class Forecast {
 
   factory Forecast.fromJson(Map<String, dynamic> json) {
     return Forecast(
-      date: json['dt_txt'].split(' ')[0], // Extract the date part (YYYY-MM-DD)
+      date: json['dt_txt'].split(' ')[0],
       temperature: json['main']['temp'].toDouble(),
       description: json['weather'][0]['description'],
     );
