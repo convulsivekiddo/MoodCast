@@ -34,10 +34,9 @@ class HomePageCubit extends Cubit<HomePageState> {
 
     try {
       String cityName = await _repository.getCurrentCity();
-      final weather = await _repository.fetchWeather(
-        cityName,
-      );
+      final weather = await _repository.fetchWeather(cityName);
       final forecast = await _repository.fetchWeekForecast(cityName);
+
       if (isClosed) return;
       emit(state.copyWith(
         weather: weather,

@@ -45,50 +45,14 @@ class WeatherRepositoryImpl implements WeatherRepository {
     final response = await http.get(
       Uri.parse('$baseUrl?q=$cityName&appid=$apiKey&units=metric'),
     );
+
     if (response.statusCode != 200) {
       throw Exception(Constants.loadingForecastExceptionText);
     }
-
     try {
       final jsonResponse = jsonDecode(response.body);
       List<dynamic> weatherList = jsonResponse['list'];
-
-      Map<String, List<Forecast>> groupedForecasts = {};
-
-      for (var entry in weatherList) {
-        Forecast forecast = Forecast.fromJson(entry);
-        String date = forecast.date;
-
-        if (!groupedForecasts.containsKey(date)) {
-          groupedForecasts[date] = [];
-        }
-        groupedForecasts[date]!.add(forecast);
-      }
-
-      List<Forecast> dailyForecasts = [];
-
-      groupedForecasts.forEach(
-        (date, dayForecasts) {
-          double totalTemp = 0;
-          String description = dayForecasts[0].description;
-
-          for (var forecast in dayForecasts) {
-            totalTemp += forecast.temperature;
-          }
-
-          double avgTemp = totalTemp / dayForecasts.length;
-
-          dailyForecasts.add(
-            Forecast(
-              date: date,
-              temperature: avgTemp,
-              description: description,
-            ),
-          );
-        },
-      );
-
-      return dailyForecasts;
+      return Forecast.fromJsonList(weatherList);
     } catch (e) {
       rethrow;
     }

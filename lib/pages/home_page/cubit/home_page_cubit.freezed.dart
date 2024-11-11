@@ -19,7 +19,6 @@ mixin _$HomePageState {
   TextEditingController get controller => throw _privateConstructorUsedError;
   Weather? get weather => throw _privateConstructorUsedError;
   List<Forecast>? get weekForecast => throw _privateConstructorUsedError;
-  Error? get error => throw _privateConstructorUsedError;
   HomePageStatus get status => throw _privateConstructorUsedError;
 
   /// Create a copy of HomePageState
@@ -39,7 +38,6 @@ abstract class $HomePageStateCopyWith<$Res> {
       {TextEditingController controller,
       Weather? weather,
       List<Forecast>? weekForecast,
-      Error? error,
       HomePageStatus status});
 }
 
@@ -61,7 +59,6 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? controller = null,
     Object? weather = freezed,
     Object? weekForecast = freezed,
-    Object? error = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -77,10 +74,6 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.weekForecast
           : weekForecast // ignore: cast_nullable_to_non_nullable
               as List<Forecast>?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as Error?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -101,7 +94,6 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
       {TextEditingController controller,
       Weather? weather,
       List<Forecast>? weekForecast,
-      Error? error,
       HomePageStatus status});
 }
 
@@ -121,7 +113,6 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
     Object? controller = null,
     Object? weather = freezed,
     Object? weekForecast = freezed,
-    Object? error = freezed,
     Object? status = null,
   }) {
     return _then(_$HomePageStateImpl(
@@ -137,10 +128,6 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value._weekForecast
           : weekForecast // ignore: cast_nullable_to_non_nullable
               as List<Forecast>?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as Error?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -156,7 +143,6 @@ class _$HomePageStateImpl extends _HomePageState {
       {required this.controller,
       this.weather,
       final List<Forecast>? weekForecast,
-      this.error,
       this.status = HomePageStatus.initial})
       : _weekForecast = weekForecast,
         super._();
@@ -176,14 +162,12 @@ class _$HomePageStateImpl extends _HomePageState {
   }
 
   @override
-  final Error? error;
-  @override
   @JsonKey()
   final HomePageStatus status;
 
   @override
   String toString() {
-    return 'HomePageState(controller: $controller, weather: $weather, weekForecast: $weekForecast, error: $error, status: $status)';
+    return 'HomePageState(controller: $controller, weather: $weather, weekForecast: $weekForecast, status: $status)';
   }
 
   @override
@@ -196,13 +180,12 @@ class _$HomePageStateImpl extends _HomePageState {
             (identical(other.weather, weather) || other.weather == weather) &&
             const DeepCollectionEquality()
                 .equals(other._weekForecast, _weekForecast) &&
-            (identical(other.error, error) || other.error == error) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, controller, weather,
-      const DeepCollectionEquality().hash(_weekForecast), error, status);
+      const DeepCollectionEquality().hash(_weekForecast), status);
 
   /// Create a copy of HomePageState
   /// with the given fields replaced by the non-null parameter values.
@@ -218,7 +201,6 @@ abstract class _HomePageState extends HomePageState {
       {required final TextEditingController controller,
       final Weather? weather,
       final List<Forecast>? weekForecast,
-      final Error? error,
       final HomePageStatus status}) = _$HomePageStateImpl;
   _HomePageState._() : super._();
 
@@ -228,8 +210,6 @@ abstract class _HomePageState extends HomePageState {
   Weather? get weather;
   @override
   List<Forecast>? get weekForecast;
-  @override
-  Error? get error;
   @override
   HomePageStatus get status;
 

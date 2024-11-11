@@ -19,7 +19,6 @@ mixin _$SearchCityState {
   TextEditingController get controller => throw _privateConstructorUsedError;
   Weather? get weather => throw _privateConstructorUsedError;
   List<Forecast>? get forecast => throw _privateConstructorUsedError;
-  Error? get error => throw _privateConstructorUsedError;
   SearchCityStatus get status => throw _privateConstructorUsedError;
 
   /// Create a copy of SearchCityState
@@ -39,7 +38,6 @@ abstract class $SearchCityStateCopyWith<$Res> {
       {TextEditingController controller,
       Weather? weather,
       List<Forecast>? forecast,
-      Error? error,
       SearchCityStatus status});
 }
 
@@ -61,7 +59,6 @@ class _$SearchCityStateCopyWithImpl<$Res, $Val extends SearchCityState>
     Object? controller = null,
     Object? weather = freezed,
     Object? forecast = freezed,
-    Object? error = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -77,10 +74,6 @@ class _$SearchCityStateCopyWithImpl<$Res, $Val extends SearchCityState>
           ? _value.forecast
           : forecast // ignore: cast_nullable_to_non_nullable
               as List<Forecast>?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as Error?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -101,7 +94,6 @@ abstract class _$$SearchCityStateImplCopyWith<$Res>
       {TextEditingController controller,
       Weather? weather,
       List<Forecast>? forecast,
-      Error? error,
       SearchCityStatus status});
 }
 
@@ -121,7 +113,6 @@ class __$$SearchCityStateImplCopyWithImpl<$Res>
     Object? controller = null,
     Object? weather = freezed,
     Object? forecast = freezed,
-    Object? error = freezed,
     Object? status = null,
   }) {
     return _then(_$SearchCityStateImpl(
@@ -137,10 +128,6 @@ class __$$SearchCityStateImplCopyWithImpl<$Res>
           ? _value._forecast
           : forecast // ignore: cast_nullable_to_non_nullable
               as List<Forecast>?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as Error?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -156,7 +143,6 @@ class _$SearchCityStateImpl extends _SearchCityState {
       {required this.controller,
       this.weather,
       final List<Forecast>? forecast,
-      this.error,
       this.status = SearchCityStatus.initial})
       : _forecast = forecast,
         super._();
@@ -176,14 +162,12 @@ class _$SearchCityStateImpl extends _SearchCityState {
   }
 
   @override
-  final Error? error;
-  @override
   @JsonKey()
   final SearchCityStatus status;
 
   @override
   String toString() {
-    return 'SearchCityState(controller: $controller, weather: $weather, forecast: $forecast, error: $error, status: $status)';
+    return 'SearchCityState(controller: $controller, weather: $weather, forecast: $forecast, status: $status)';
   }
 
   @override
@@ -195,13 +179,12 @@ class _$SearchCityStateImpl extends _SearchCityState {
                 other.controller == controller) &&
             (identical(other.weather, weather) || other.weather == weather) &&
             const DeepCollectionEquality().equals(other._forecast, _forecast) &&
-            (identical(other.error, error) || other.error == error) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, controller, weather,
-      const DeepCollectionEquality().hash(_forecast), error, status);
+      const DeepCollectionEquality().hash(_forecast), status);
 
   /// Create a copy of SearchCityState
   /// with the given fields replaced by the non-null parameter values.
@@ -218,7 +201,6 @@ abstract class _SearchCityState extends SearchCityState {
       {required final TextEditingController controller,
       final Weather? weather,
       final List<Forecast>? forecast,
-      final Error? error,
       final SearchCityStatus status}) = _$SearchCityStateImpl;
   _SearchCityState._() : super._();
 
@@ -228,8 +210,6 @@ abstract class _SearchCityState extends SearchCityState {
   Weather? get weather;
   @override
   List<Forecast>? get forecast;
-  @override
-  Error? get error;
   @override
   SearchCityStatus get status;
 
